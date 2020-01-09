@@ -1,7 +1,7 @@
 Summary: Fast anti-spam filtering by Bayesian statistical analysis
 Name: bogofilter
 Version: 1.2.3
-Release: 3%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 Group: Applications/Internet
 URL: http://bogofilter.sourceforge.net/
@@ -15,7 +15,7 @@ URL: http://bogofilter.sourceforge.net/
 # tar cf bogofilter-1.2.3.repack.tar.gz bogofilter-1.2.3
 Source: bogofilter-%{version}.repack.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: flex db4-devel gsl-devel
+BuildRequires: flex libdb-devel gsl-devel
 BuildRequires: /usr/bin/iconv
 
 %description
@@ -49,7 +49,7 @@ iconv -f iso-8859-1 -t utf-8 \
  doc/bogofilter-faq-fr.html
 
 %build
-CFLAGS="%{optflags} -I%{_includedir}/libdb4" LDFLAGS="-L%{_libdir}/libdb4" %configure --disable-rpath
+CFLAGS="%{optflags}" %configure --disable-rpath
 %{__make} %{?_smp_mflags}
 
 %install
@@ -87,6 +87,16 @@ CFLAGS="%{optflags} -I%{_includedir}/libdb4" LDFLAGS="-L%{_libdir}/libdb4" %conf
 %exclude %{_mandir}/man1/bogoupgrade*
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 1.2.3-6
+- Mass rebuild 2014-01-24
+
+* Mon Jan 13 2014 Honza Horák <hhorak@redhat.com> - 1.2.3-4
+- Build against libdb, not compat libdb4
+  Resolves: #1044991
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 1.2.3-4
+- Mass rebuild 2013-12-27
+
 * Fri Feb 22 2013 Adrian Reber <adrian@lisas.de> - 1.2.3-2
 - removed three files with an unfree license from Source (fixes #912694)
 
@@ -114,7 +124,7 @@ CFLAGS="%{optflags} -I%{_includedir}/libdb4" LDFLAGS="-L%{_libdir}/libdb4" %conf
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Mon Feb 26 2009 Adrian Reber <adrian@lisas.de> - 1.2.0-1
+* Thu Feb 26 2009 Adrian Reber <adrian@lisas.de> - 1.2.0-1
 - updated to 1.2.0
 
 * Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.7-3
